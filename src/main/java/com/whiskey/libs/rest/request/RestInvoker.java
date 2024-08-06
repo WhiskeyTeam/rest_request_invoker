@@ -22,8 +22,6 @@ public class RestInvoker<T> {
     }
 
     public <P> T request(Object requestPayload, Class<P> payloadType, Map<String, String> headers, RequestMethod method) throws Exception {
-
-
         URL url = new URL(requestUrl);
 
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
@@ -64,5 +62,10 @@ public class RestInvoker<T> {
         } else {
             throw new RuntimeException("Failed : HTTP error code : " + code);
         }
+    }
+
+    // Overloaded method without headers
+    public <P> T request(Object requestPayload, Class<P> payloadType, RequestMethod method) throws Exception {
+        return request(requestPayload, payloadType, null, method);
     }
 }

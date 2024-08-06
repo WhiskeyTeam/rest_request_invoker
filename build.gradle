@@ -3,7 +3,7 @@ plugins {
 }
 
 group = 'com.whiskey'
-version = '1.0-SNAPSHOT'
+version = '0.2-SNAPSHOT'
 
 repositories {
     mavenCentral()
@@ -20,7 +20,13 @@ dependencies {
 
     // https://mvnrepository.com/artifact/com.google.code.gson/gson
     implementation group: 'com.google.code.gson', name: 'gson', version: '2.11.0'
+}
 
+jar {
+    manifest {
+        attributes 'Implementation-Title': 'RestRequestInvoker',
+                'Implementation-Version': version
+    }
 }
 
 test {
