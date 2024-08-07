@@ -36,16 +36,16 @@ public class RestInvoker<T> {
             }
         }
 
-        // Send request payload
-        String jsonPayload = gson.toJson(requestPayload, payloadType); // Serialize request payload
-
-        connection.getOutputStream().write(jsonPayload.getBytes());
+        // Send request payload if not null
+        if (requestPayload != null && payloadType != null) {
+            String jsonPayload = gson.toJson(requestPayload, payloadType); // Serialize request payload
+            try (OutputStream os = connection.getOutputStream()) {
+                byte[] input = jsonPayload.getBytes("utf-8");
+                os.write(input, 0, input.length);
+            }
+        }
 
         // Get response
-        try (OutputStream os = connection.getOutputStream()) {
-            byte[] input = jsonPayload.getBytes("utf-8");
-            os.write(input, 0, input.length);
-        }
         int code = connection.getResponseCode();    // Get response code(like 200, 404, etc.)
 
         if (code == 200) {  // if the request is successful
@@ -54,11 +54,8 @@ public class RestInvoker<T> {
                 String responseLine;
                 while ((responseLine = br.readLine()) != null) response.append(responseLine.trim());
 
-                System.out.println("sadfasdfasdfasdfasd" + response.toString());
-
                 return gson.fromJson(response.toString(), responseType);    // Deserialize response to Object of type T
             }
-            // if the request is not successful
         } else {
             throw new RuntimeException("Failed : HTTP error code : " + code);
         }
@@ -67,5 +64,10 @@ public class RestInvoker<T> {
     // Overloaded method without headers
     public <P> T request(Object requestPayload, Class<P> payloadType, RequestMethod method) throws Exception {
         return request(requestPayload, payloadType, null, method);
+    }
+
+    // Overloaded method without body
+    public <P> T request(Map<String, String> headers, RequestMethod method) throws Exception {
+        return request(null, null, headers, method);
     }
 }
