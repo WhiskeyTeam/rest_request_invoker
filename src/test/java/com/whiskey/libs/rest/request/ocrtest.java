@@ -1,24 +1,35 @@
 package com.whiskey.libs.rest.request;
 
-import org.junit.jupiter.api.Test;
+import lombok.*;
+import org.junit.jupiter.api.*;
 
-public class ocrtest {
+public class OcrTest {
     @Test
-    public void nonHeadTest() throws Exception {
-        String url = "http://localhost:8080/ocr/receipt";
-        var invoker = new RestInvoker<>(url, FilteredReceipt.class);
-
-        // 사전에 반드시 파일은 업로드 되어 있어야 함!!!
-        // 업로드된 파일명을 반환하여 하기 fileName에 입력해야 합니다.
-
-        var fileName = new RequestBody();
-        fileName.fileName = "Snipaste_2024-08-01_17-15-32.png";
-
-        FilteredReceipt request = invoker.request(fileName, RequestBody.class, RequestMethod.POST);
-        System.out.println(request);
+    @DisplayName("REDIS 서버에 키-값 페어 저장 테스트")
+    public void test1() {
+//        String url = "REQUEST_URL_HERE";
+//
+//        var invoker = RestInvoker.create(url, null);
+//
+//        var payload = new RequestPayload();
+//        payload.setKey("MyKey");
+//        payload.setValue("Alice22");
+//
+//        try {
+//            invoker.request(payload, RequestPayload.class, RequestMethod.POST);
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
     }
 }
 
-class RequestBody {
-    public String fileName;
+@Setter
+@Getter
+class RequestPayload {
+    private String key;
+    private String value;
+}
+
+class ResponsePayload {
+
 }
