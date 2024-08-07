@@ -104,6 +104,17 @@ public class RestInvoker<T> {
         return request(null, null, headers, method);
     }
 
+    /**
+     * REST 서버에 요청을 보내고 응답을 받는다. <br>
+     * 오버로드된 메소드로 페이로드와 헤더를 사용하지 않는다.
+     * @param method 요청 메소드
+     * @return 응답 페이로드
+     * @throws Exception 요청이 실패한 경우
+     */
+    public T request(RequestMethod method) throws Exception {
+        return request(null, null, null, method);
+    }
+
     private void writePayload(HttpURLConnection connection, String payload) throws IOException {
         try (OutputStream os = connection.getOutputStream()) {
             byte[] input = payload.getBytes(StandardCharsets.UTF_8);
