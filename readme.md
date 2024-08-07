@@ -2,6 +2,15 @@
 
 REST-API와 같은 서비스에 HTTP요청을 보내고, 편리하게 역직렬화된 객체를 응답받을 수 있는 유틸리티입니다.
 
+### Version History
+
+| When       | Description               |
+| ---------- | ------------------------- |
+| ...        | 기본 라이브러리 구조 확립 |
+| 2024.08.07 | Factory Method 패턴 적용  |
+
+
+
 ## RestInvoker Class
 
 ```java
