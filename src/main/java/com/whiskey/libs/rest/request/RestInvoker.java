@@ -69,7 +69,7 @@ public class RestInvoker<T> {
                 return gson.fromJson(response, responseType);
             } else {
                 String errorResponse = readResponse(connection.getErrorStream());
-                throw new RuntimeException("Failed : HTTP error code : " + code + ", Response: " + errorResponse);
+                throw new RuntimeException("Failed : HTTP error code : " + code + ", Response: " + errorResponse + ", ERROR MESSAGE: " + connection.getResponseMessage());
             }
         } finally {
             connection.disconnect(); // 연결 해제
