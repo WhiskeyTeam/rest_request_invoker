@@ -65,7 +65,6 @@ public class RestInvoker<T> {
             if (code == 200) {
                 String response = readResponse(connection);
 
-                if (headers == null) return null;
                 return gson.fromJson(response, responseType);
             } else {
                 String errorResponse = readResponse(connection.getErrorStream());

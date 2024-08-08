@@ -5,31 +5,20 @@ import org.junit.jupiter.api.*;
 
 public class OcrTest {
     @Test
-    @DisplayName("REDIS 서버에 키-값 페어 저장 테스트")
-    public void test1() {
-//        String url = "REQUEST_URL_HERE";
-//
-//        var invoker = RestInvoker.create(url, null);
-//
-//        var payload = new RequestPayload();
-//        payload.setKey("MyKey");
-//        payload.setValue("Alice22");
-//
-//        try {
-//            invoker.request(payload, RequestPayload.class, RequestMethod.POST);
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
+    public void test1() throws Exception {
+        String url = "YOUR REQUEST URL";
+        var invoker = RestInvoker.create(url, ResponseHead.class);
+
+        RequestHead body = new RequestHead();
+        body.fileName = "dd9a6650-ea45-4021-9d0e-afa31729c26d.jpeg";
+
+        ResponseHead request = invoker.request(body, RequestHead.class, RequestMethod.POST);
+        System.out.println(request);
     }
 }
 
-@Setter
 @Getter
-class RequestPayload {
-    private String key;
-    private String value;
-}
-
-class ResponsePayload {
-
+@Setter
+class RequestHead {
+    public String fileName;
 }
